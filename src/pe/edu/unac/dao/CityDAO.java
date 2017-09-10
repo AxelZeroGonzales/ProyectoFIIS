@@ -17,14 +17,8 @@ public class CityDAO {
     private static ResultSet resultSet;
     private static PreparedStatement preparedStatement;
     
-    private static final String CITY_CREATE 		= "INSERT INTO country VALUES (null,?,null)";
-    private static final String CITY_READ 			= "SELECT * FROM country WHERE country_id = ?";
-    private static final String CITY_UPDATE 		= "UPDATE country SET country = ? WHERE country_id = ?";
-    private static final String CITY_DELETE 		= "DELETE FROM country WHERE country_id = ?";
     private static final String CITY_SELECT_ALL 	= "SELECT * FROM city ci INNER JOIN country co ON ci.country_id = co.country_id";
-    private static final String CITY_SELECT_FILTER 	= "SELECT * FROM country WHERE country LIKE ?";
-    
-    
+
     public static List<City> getListCity() {
     	
     	List<City> listCity = new ArrayList<>();

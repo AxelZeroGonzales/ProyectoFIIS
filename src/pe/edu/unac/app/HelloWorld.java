@@ -12,7 +12,7 @@ public class HelloWorld {
 		List<Country> listCountry = CountryDAO.getListCountry();
 
 		for (int i=0; i < listCountry.size(); i++ ) {
-			System.out.println(listCountry.get(i).getCountry());
+			System.out.println(listCountry.get(i).toString());
 		}
 		
 	}
