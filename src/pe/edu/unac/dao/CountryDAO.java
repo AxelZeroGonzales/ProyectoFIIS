@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import pe.edu.unac.mapper.CountryMapper;
 import pe.edu.unac.model.Country;
 
 public class CountryDAO {
@@ -57,7 +58,7 @@ public class CountryDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                country = mapperCountry(resultSet);
+                country = CountryMapper.mapperCountry(resultSet);
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -129,7 +130,7 @@ public class CountryDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                listCountry.add(mapperCountry(resultSet));
+                listCountry.add(CountryMapper.mapperCountry(resultSet));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -156,7 +157,7 @@ public class CountryDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                listCountry.add(mapperCountry(resultSet));
+                listCountry.add(CountryMapper.mapperCountry(resultSet));
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -165,14 +166,5 @@ public class CountryDAO {
         return listCountry;
     }
 
-    private static Country mapperCountry(ResultSet resultSet) throws SQLException {
-        Country country = new Country();
-
-        country.setCountryId(resultSet.getInt("country_id"));
-        country.setCountry(resultSet.getString("country"));
-        country.setLastUpdate(resultSet.getTimestamp("last_update"));
-
-        return country;
-    }
 	
 }
