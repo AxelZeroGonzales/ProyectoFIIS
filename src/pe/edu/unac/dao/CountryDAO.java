@@ -131,6 +131,7 @@ public class CountryDAO {
             while (resultSet.next()) {
                 listCountry.add(CountryMapper.mapperCountry(resultSet));
             }
+            System.out.println("DAO COUNTRY");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {

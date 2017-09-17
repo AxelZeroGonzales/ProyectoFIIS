@@ -1,6 +1,5 @@
 package pe.edu.unac.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,7 +9,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import pe.edu.unac.controller.CountryController;
+import pe.edu.unac.dao.CityDAO;
 import pe.edu.unac.dao.CountryDAO;
+import pe.edu.unac.model.City;
 import pe.edu.unac.model.Country;
 
 import javax.swing.JButton;
@@ -18,11 +20,18 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class CountryForm extends JFrame {
 
+	private static final long serialVersionUID = 4664524955165344153L;
 	private JPanel contentPane;
 	private JTable table;
+	private JComboBox<Country> cbCountry;
+	private JComboBox<City> cbCity;
+	private JLabel lblPathJar;
 
 	/**
 	 * Launch the application.
@@ -52,7 +61,7 @@ public class CountryForm extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 137, 673, 340);
+		scrollPane.setBounds(10, 299, 673, 178);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -72,17 +81,70 @@ public class CountryForm extends JFrame {
 				cargarTabla();
 			}
 		});
-		btnMostrarPaises.setBounds(475, 57, 208, 23);
+		btnMostrarPaises.setBounds(475, 260, 208, 23);
 		contentPane.add(btnMostrarPaises);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
+		cbCountry = new JComboBox<Country>();
+		cbCountry.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				initComboCity((Country) cbCountry.getSelectedItem());
 			}
 		});
-		comboBox.setBounds(26, 21, 99, 23);
-		contentPane.add(comboBox);
+		
+		cbCountry.setBounds(10, 57, 126, 23);
+		contentPane.add(cbCountry);
+		
+		cbCity = new JComboBox<City>();
+		cbCity.setBounds(146, 57, 126, 23);
+		contentPane.add(cbCity);
+		
+		JLabel lblPais = new JLabel("PAIS");
+		lblPais.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPais.setBounds(10, 32, 99, 14);
+		contentPane.add(lblPais);
+		
+		JLabel lblCiudad = new JLabel("CIUDAD");
+		lblCiudad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCiudad.setBounds(146, 32, 46, 14);
+		contentPane.add(lblCiudad);
+		
+		JButton btnReportCountry = new JButton("Report Country");
+		btnReportCountry.addActionListener(new ActionListener() {
+			@SuppressWarnings("unused")
+			public void actionPerformed(ActionEvent arg0) {
+				String rpta = CountryController.viewReport();
+				lblPathJar.setText(getClass().getResource("/pe/edu/unac/report/jrxml/").toString());
+			}
+		});
+		btnReportCountry.setBounds(10, 119, 262, 23);
+		contentPane.add(btnReportCountry);
+		
+		lblPathJar = new JLabel("");
+		lblPathJar.setIcon(new ImageIcon(CountryForm.class.getResource("/pe/edu/unac/report/jrxml/screenshot-www.twitch.tv-2017-09-10-14-16-48.png")));
+		lblPathJar.setBounds(54, 153, 233, 137);
+		contentPane.add(lblPathJar);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(407, 103, 46, 14);
+		contentPane.add(lblNewLabel);
+		
+		initComboCountry();
+	}
+	
+	private void initComboCountry(){
+		
+		cbCountry.addItem(new Country(0, "SELECCIONE"));
+		for(Country country : CountryDAO.getListCountry()) {
+			cbCountry.addItem(country);
+		}
+	}
+	
+	private void initComboCity(Country _country){
+		cbCity.removeAllItems();
+		cbCity.addItem(new City(0, "SELECCIONE"));
+		for(City city : CityDAO.getListCity(_country)) {
+			cbCity.addItem(city);
+		}
 	}
 	
 	private void cargarTabla() {

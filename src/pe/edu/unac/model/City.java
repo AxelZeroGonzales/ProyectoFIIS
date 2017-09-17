@@ -9,6 +9,13 @@ public class City {
 	private Country country;
 	private Timestamp lastUpdate;
 
+	public City() {}
+	
+	public City(Integer cityId, String city) {
+		this.cityId = cityId;
+		this.city = city;
+	}
+
 	public Integer getCityId() {
 		return cityId;
 	}
@@ -39,6 +46,11 @@ public class City {
 	
 	public void setLastUpdate(Timestamp lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	@Override
+	public String toString() {
+		return city;
 	}
 	
 	

@@ -14,41 +14,76 @@ import pe.edu.unac.model.Country;
 public class CityDAO {
 
 	private static Connection connection;
-    private static ResultSet resultSet;
-    private static PreparedStatement preparedStatement;
-    
-    private static final String CITY_SELECT_ALL 	= "SELECT * FROM city ci INNER JOIN country co ON ci.country_id = co.country_id";
+	private static ResultSet resultSet;
+	private static PreparedStatement preparedStatement;
 
-    public static List<City> getListCity() {
-    	
-    	List<City> listCity = new ArrayList<>();
+	private static final String CITY_SELECT_ALL = "SELECT * FROM city";
+	private static final String CITY_SELECT_COUNTRY = "SELECT * FROM city ci INNER JOIN country co ON ci.country_id = co.country_id WHERE ci.country_id = ?";
 
-        try {
-            connection = FactoryDAO.connection();
-            preparedStatement = connection.prepareStatement(CITY_SELECT_ALL);
-            resultSet = preparedStatement.executeQuery();
+	public static List<City> getListCity() {
 
-            while (resultSet.next()) {
-            	City city = new City();
-            	city.setCityId(resultSet.getInt("city_id"));
-            	city.setCity(resultSet.getString("city"));
-            	city.setLastUpdate(resultSet.getTimestamp("last_update"));
-            	
-            	Country country = CountryMapper.mapperCountry(resultSet);
-            	city.setCountry(country);
-            	listCity.add(city);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                preparedStatement.close();
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+		List<City> listCity = new ArrayList<>();
 
-        return listCity;
-    }
+		try {
+			connection = FactoryDAO.connection();
+			preparedStatement = connection.prepareStatement(CITY_SELECT_ALL);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				City city = new City();
+				city.setCityId(resultSet.getInt("city_id"));
+				city.setCity(resultSet.getString("city"));
+				city.setLastUpdate(resultSet.getTimestamp("last_update"));
+
+				Country country = CountryMapper.mapperCountry(resultSet);
+				city.setCountry(country);
+				listCity.add(city);
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return listCity;
+	}
+
+	public static List<City> getListCity(Country _country) {
+
+		List<City> listCity = new ArrayList<>();
+
+		try {
+			connection = FactoryDAO.connection();
+			preparedStatement = connection.prepareStatement(CITY_SELECT_COUNTRY);
+			preparedStatement.setInt(1, _country.getCountryId());
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				City city = new City();
+				city.setCityId(resultSet.getInt("city_id"));
+				city.setCity(resultSet.getString("city"));
+				city.setLastUpdate(resultSet.getTimestamp("last_update"));
+
+				Country country = CountryMapper.mapperCountry(resultSet);
+				city.setCountry(country);
+				listCity.add(city);
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return listCity;
+	}
 }

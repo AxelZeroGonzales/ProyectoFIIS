@@ -10,6 +10,15 @@ public class Country {
 	private List<City> listCity;
 	private Timestamp lastUpdate;
 	
+	public Country() {
+		
+	}
+
+	public Country(Integer countryId, String country) {
+		this.countryId = countryId;
+		this.country = country;
+	}
+
 	public Integer getCountryId() {
 		return countryId;
 	}
@@ -44,7 +53,7 @@ public class Country {
 
 	@Override
 	public String toString() {
-		return "Country [countryId=" + countryId + ", country=" + country + ", lastUpdate=" + lastUpdate + "]";
+		return country;
 	}
 
 }

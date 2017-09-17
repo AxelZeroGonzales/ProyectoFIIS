@@ -8,9 +8,9 @@ public class FactoryDAO {
 
     public static Connection connection() throws ClassNotFoundException, SQLException {
         String database = "sakila";
-        String username = "root";
-        String password = "";
-        String url = "jdbc:mysql://localhost:3306/" + database;
+        String username = "homestead";
+        String password = "secret";
+        String url = "jdbc:mysql://192.168.10.10:3306/" + database + "?useSSL=false";
 
         return DriverManager.getConnection(url, username, password);
     }

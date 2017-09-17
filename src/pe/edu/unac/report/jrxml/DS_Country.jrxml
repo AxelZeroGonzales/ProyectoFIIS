@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DS_Country" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62b07891-cc4b-4e73-bdf5-f93c2fcf001d">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="countryId" class="java.lang.Integer"/>
+	<field name="country" class="java.lang.String"/>
+	<field name="lastUpdate" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="797b6a6c-3df7-4092-a223-a5275ffd9c79"/>
+				<text><![CDATA[country_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="72653f57-f178-485c-8d61-ce7c461ebf24"/>
+				<text><![CDATA[country]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="f5e13ffe-ac4f-44fa-a364-1152d19ecf9b"/>
+				<text><![CDATA[last_update]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="19" width="185" height="30" uuid="20c301f8-1ccd-4f57-b29a-bdbcb94e0f1e"/>
+				<textFieldExpression><![CDATA[$F{countryId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="19" width="185" height="30" uuid="12a7fa45-5440-4018-882c-c98dae30084f"/>
+				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="19" width="185" height="30" uuid="93934da4-c67a-4c37-8bf5-93ad53077204"/>
+				<textFieldExpression><![CDATA[$F{lastUpdate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
